@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.container_card {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 100px;
+  display: grid;
+  /* column-gap: 10px; */
+  row-gap: 50px;
+  grid-template-columns: repeat(5, 1fr);
+}

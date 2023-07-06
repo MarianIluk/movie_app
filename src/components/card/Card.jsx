@@ -1,44 +1,14 @@
-import React, { useEffect } from "react";
-import styles from "./card.module.css";
+import React, { useEffect, useState } from 'react'
+import styles from './card.module.css'
 
-const Card = () => {
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmY2EzNzlmNmI4MjczNmUyYmQwYjQyMzAyMDM4ODQ0MSIsInN1YiI6IjY0NzA2NmU2NTQzN2Y1MDBjMzI4MWVmZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.S6SBMSx80eXF17PmGkUXdhVNJuS5EX__fRXcN4KHDeY",
-    },
-  };
-
-
-  useEffect(() => {
-
-
-      const fetchMovies = async () => {
-        const response = await fetch(
-          "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
-          options
-        );
-        const data = await response.json();
-        const movieList = data.results;
-        return console.log(movieList);
-      };
-      
-      const movie = fetchMovies();
-      console.log(movie);
-  }, []);
-
+const Card = ({ id, backdropPath, title, releaseDate }) => {
   return (
-    <div>
-        
-        {/* {movie.map((movie) => (
-              <p>{movie.title}</p>
-            ))} */}
+    <div onClick={() => console.log('')}>
+      <img src={`https://image.tmdb.org/t/p/w220_and_h330_face` + backdropPath} alt='' />
+      <h2 className={styles.card_title}>{title}</h2>
+      <p className={styles.card_title}>{releaseDate}</p>
     </div>
-
   )
-};
+}
 
-
-export default Card;
+export default Card
