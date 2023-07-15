@@ -1,0 +1,55 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  position: relative;
+  background-color: rgba(30, 213, 169, 0.2);
+  border-radius: 10px;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  transition-duration: 0.3s;
+  cursor: pointer;
+}
+
+.card_img {
+  width: 240px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin: 0 auto;
+}
+
+.card_title {
+  width: 220px;
+  padding: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.card_title:hover {
+  color: rgba(1, 180, 228, 1);
+}
+
+.card_container_card_releaseDate {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.card_releaseDate {
+  margin-top: 50px;
+  padding-left: 10px;
+  font-size: 20px;
+}
+
+.card_vote {
+  position: absolute;
+  bottom: 15px;
+  right: 10px;
+  font-size: 30px;
+  color: rgba(1, 180, 228, 1);
+  font-weight: bold;
+}

@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
-import Header from "./components/header/Header";
-import Card from "./components/card/Card";
-import Slider from "./components/slider/Slider";
+import React from "react";
+import { useEffect, useState } from "react";
+import Header from "../../components/header/Header";
+import styles from "./movieDetail.module.css"
 
-
-function App() {
+const MovieDetail = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loadData, setLoadData] = useState(false);
-  const [movieList, setMovieList] = useState([]);
+  const [movieDetails, setMovieDetails] = useState([]);
+
+  const searchParams = new URLSearchParams(window.location.search);
+  const id = searchParams.get("id");
 
   useEffect(() => {
-    const fetchMovies = async () => {
+    const fetchMoviesDetail = async () => {
       const options = {
         method: "GET",
         headers: {
@@ -24,47 +25,34 @@ function App() {
       try {
         setLoadData(true);
         const response = await fetch(
-          "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
+          "https://api.themoviedb.org/3/movie/" + id + "?language=en-US",
           options
         );
         const data = await response.json();
-        setMovieList(data.results);
+        setMovieDetails(data.results);
         setLoadData(false);
       } catch (error) {
         setLoadData(true);
         setErrorMessage(error.message);
       }
     };
-    console.log(movieList)
-
-    fetchMovies();
+    fetchMoviesDetail();
   }, []);
 
   if (errorMessage !== "") {
     alert("Oops, some went wrong");
   }
 
-  console.log(movieList);
-
+  console.log(movieDetails);
 
   return (
     <>
       <Header />
-      <Slider movie={movieList[0]} />
-      <div className="container_card">
-        {movieList.map((movie) => (
-          <Card
-            id={movie.id}
-            posterPath={movie.poster_path}
-            title={movie.title}
-            releaseDate={movie.release_date}
-            vote_average={movie.vote_average}
-            key={movie.id}
-          />
-        ))}
+      <div className={styles.movie_detail_container}>
+
       </div>
     </>
   );
-}
+};
 
-export default App;
+export default MovieDetail;

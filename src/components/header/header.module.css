@@ -1,21 +1,26 @@
 .header {
   width: 100%;
   background-color: rgba(3, 37, 65);
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 .header_container {
-  max-width: 1200px;
-  padding: 10px 0;
+  max-width: 1400px;
+  padding: 20px 0;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
 }
 
-.header_title {
+.header_logo {
   text-decoration: none;
-  padding: 0 10px;
+  padding: 5px 10px;
   letter-spacing: 3px;
-  
+  font-size: 30px;
+  font-weight: 500;
+  color: white;
   background: linear-gradient(
     to right,
     rgba(30, 213, 169, 1) 0%,
@@ -37,6 +42,15 @@
   font-weight: 500;
   letter-spacing: 2px;
   text-transform: uppercase;
+  color: white;
+}
+
+.header_list_item_link {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
   color: white;
 }
 

@@ -38,11 +38,11 @@
 }
 
 .container_card {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding-top: 100px;
   display: grid;
-  /* column-gap: 10px; */
+  column-gap: 50px;
   row-gap: 50px;
   grid-template-columns: repeat(5, 1fr);
 }
