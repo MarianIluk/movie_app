@@ -3,11 +3,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../../components/header/Header";
 import ShowMowieDetail from "./showMovieDetail/ShowMowieDetail";
+import Foter from "../../components/foter/Foter";
+import Video from "./video/Video";
 
 const MovieDetail = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loadData, setLoadData] = useState(false);
   const [movieDetails, setMovieDetails] = useState([]);
+  const [video, setVideo] = useState('')
 
   let { id } = useParams();
 
@@ -25,7 +28,7 @@ const MovieDetail = () => {
       try {
         setLoadData(true);
         const response = await fetch(
-          "https://api.themoviedb.org/3/movie/" + id + "?language=en-US",
+          "https://api.themoviedb.org/3/movie/" + id + "?language=uk",
           options
         );
         const data = await response.json();
@@ -36,6 +39,33 @@ const MovieDetail = () => {
         setErrorMessage(error.message);
       }
     };
+
+    const fetchMoviesVideos = async () => {
+      const options = {
+        method: "GET",
+        headers: {
+          accept: "application/json",
+          Authorization:
+            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmY2EzNzlmNmI4MjczNmUyYmQwYjQyMzAyMDM4ODQ0MSIsInN1YiI6IjY0NzA2NmU2NTQzN2Y1MDBjMzI4MWVmZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.S6SBMSx80eXF17PmGkUXdhVNJuS5EX__fRXcN4KHDeY",
+        },
+      };
+
+      try {
+        const response = await fetch(
+          'https://api.themoviedb.org/3/movie/' + id + '/videos?language=uk',
+          options
+        );
+        const data = await response.json();
+        setVideo(data?.results[0].key);
+      } catch (error) {
+        setErrorMessage(error.message);
+      }
+    };
+
+    console.log(video);
+
+
+    fetchMoviesVideos();
     fetchMoviesDetail();
   }, []);
 
@@ -50,7 +80,7 @@ const MovieDetail = () => {
         backdrop_path={movieDetails.backdrop_path}
         budget={movieDetails.budget}
         revenue={movieDetails.revenue}
-        original_title={movieDetails.original_title}
+        title={movieDetails.title}
         tagline={movieDetails.tagline}
         overview={movieDetails.overview}
         popularity={movieDetails.popularity}
@@ -61,6 +91,8 @@ const MovieDetail = () => {
         genres={movieDetails.genres}
         key={movieDetails.id}
       />
+      <Video key={video} />
+      <Foter />
     </>
   );
 };

@@ -10,6 +10,7 @@ const HomeSerials = () => {
     const [errorMessage, setErrorMessage] = useState("");
     const [loadData, setLoadData] = useState(false);
     const [serialsList, setSerialsList] = useState([]);
+    const [count, setCount] = useState(1);
   
     useEffect(() => {
       const fetchSerials = async () => {
@@ -25,7 +26,7 @@ const HomeSerials = () => {
         try {
           setLoadData(true);
           const response = await fetch(
-            "https://api.themoviedb.org/3/tv/popular?page=1",
+            `https://api.themoviedb.org/3/tv/popular?language=uk&page=${count}`,
             options
           );
           const data = await response.json();
@@ -38,11 +39,21 @@ const HomeSerials = () => {
       };
   
       fetchSerials();
-    }, []);
+      window.scrollTo(0, 0);
+    }, [count]);
   
     if (errorMessage !== "") {
       alert("Oops, some went wrong");
     }
+
+
+    const increment = () => {
+      setCount(count + 1);
+    };
+  
+    const decrement = () => {
+      setCount(count - 1);
+    };
 
   return (
     <div>
@@ -60,7 +71,7 @@ const HomeSerials = () => {
           />
         ))}
       </div>
-      <Pagination />
+      <Pagination increment={increment} decrement={decrement} count={count}  />
       <Foter />
     </div>
   )

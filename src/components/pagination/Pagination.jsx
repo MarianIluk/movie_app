@@ -1,9 +1,7 @@
 import React from "react";
 import style from "./pagination.module.css";
 
-const Pagination = ({increment, decrement, count}) => {
-
-
+const Pagination = ({ increment, decrement, count }) => {
   return (
     <div className={style.container}>
       {count > 1 && (

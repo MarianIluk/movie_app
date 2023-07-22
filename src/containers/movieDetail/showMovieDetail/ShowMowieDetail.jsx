@@ -5,7 +5,7 @@ const ShowMowieDetail = ({
   backdrop_path,
   budget,
   revenue,
-  original_title,
+  title,
   tagline,
   overview,
   popularity,
@@ -33,7 +33,7 @@ const ShowMowieDetail = ({
           alt="poster"
         />
         <div className={styles.content_container}>
-          <h2 className={styles.title}>{original_title}</h2>
+          <h2 className={styles.title}>{title}</h2>
           <p className={styles.text}>{tagline}</p>
           <p className={styles.text}>Дата виходу: {release_date}</p>
           <p className={styles.text}>Тривалість {runtime} хв.</p>
