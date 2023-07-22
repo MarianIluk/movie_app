@@ -13,7 +13,7 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="/moviedetails/id=:id" element={<MovieDetail />} />
+      <Route path="/moviedetails/id/:id" element={<MovieDetail />} />
       <Route path="*" element={<NotFoundPage />} />
       <Route path="/serials/" element={<HomeSerials />} />
     </Routes>

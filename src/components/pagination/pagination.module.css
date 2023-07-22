@@ -1,0 +1,24 @@
+.container{
+    max-width: 1400px;
+    margin: 0 auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.button_pagination {
+    font-size: 34px;
+    color: rgba(1, 180, 228, 1);
+    border: none;
+    background-color: white;
+}
+
+.button_pagination:hover {
+    color: rgba(30, 213, 169, 1);
+}
+
+.count_pagination {
+    font-size: 34px;
+    padding: 0 10px;
+}

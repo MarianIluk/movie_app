@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Header from '../../components/header/Header'
-import Slider from "../../components/slider/Slider";
+import Search from "../../components/search/Search";
 import Card from "../../components/card/Card";
+import Pagination from "../../components/pagination/Pagination";
+import Foter from "../../components/foter/Foter";
 
 
 const HomeSerials = () => {
@@ -45,7 +47,7 @@ const HomeSerials = () => {
   return (
     <div>
         <Header />
-        <Slider movie={serialsList[0]} />
+        <Search movie={serialsList[0]} />
       <div className="container_card">
         {serialsList.map((movie) => (
           <Card
@@ -58,6 +60,8 @@ const HomeSerials = () => {
           />
         ))}
       </div>
+      <Pagination />
+      <Foter />
     </div>
   )
 }

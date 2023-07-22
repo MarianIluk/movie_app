@@ -1,42 +1,38 @@
-.slider {
+.search {
   max-width: 1400px;
   margin: 0 auto;
   background-color: rgba(1, 180, 228, 0.5);
 }
 
-.slider_image {
+.search_image {
   max-width: 1400px;
   position: absolute;
   z-index: -1;
   opacity: 1;
 }
 
-h2 {
-  margin: 0;
-}
-
-.slider_title {
+.search_title {
   padding-top: 100px;
   padding-left: 20px;
   font-size: 42px;
   color: white;
 }
 
-.slider_subtitle {
+.search_subtitle {
   padding-top: 20px;
   padding-left: 20px;
   font-size: 36px;
   color: white;
 }
 
-.slider_form {
+.search_form {
   margin-top: 125px;
   text-align: center;
-  padding-bottom: 100px;
+  padding-bottom: 63px;
   padding-left: 30px;
 }
 
-.slider_form_input {
+.search_form_input {
   width: 90%;
   padding: 10px 20px;
   font-size: 24px;

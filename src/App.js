@@ -2,13 +2,16 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/header/Header";
 import Card from "./components/card/Card";
-import Slider from "./components/slider/Slider";
-
+import Search from "./components/search/Search";
+import Pagination from "./components/pagination/Pagination";
+import Foter from "./components/foter/Foter";
 
 function App() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loadData, setLoadData] = useState(false);
   const [movieList, setMovieList] = useState([]);
+  const [value, setValue] = useState("");
+  const [count, setCount] = useState(1);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -24,7 +27,7 @@ function App() {
       try {
         setLoadData(true);
         const response = await fetch(
-          "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
+          `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=${count}`,
           options
         );
         const data = await response.json();
@@ -35,24 +38,37 @@ function App() {
         setErrorMessage(error.message);
       }
     };
-    console.log(movieList)
 
     fetchMovies();
-  }, []);
+  }, [count]);
 
   if (errorMessage !== "") {
     alert("Oops, some went wrong");
   }
 
-  console.log(movieList);
+  const handleSearch = (event) => {
+    setValue(event.target.value);
+  };
 
+    const filteredMovie = movieList.filter((movie) =>
+      movie.title.toLowerCase().includes(value.toLowerCase())
+    );
+
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    setCount(count - 1);
+  };
 
   return (
     <>
       <Header />
-      <Slider movie={movieList[0]} />
+      <Search movie={movieList[0]} handleSearch={handleSearch} />
       <div className="container_card">
-        {movieList.map((movie) => (
+        {filteredMovie.map((movie) => (
           <Card
             id={movie.id}
             posterPath={movie.poster_path}
@@ -63,6 +79,8 @@ function App() {
           />
         ))}
       </div>
+      <Pagination increment={increment} decrement={decrement} count={count} />
+      <Foter />
     </>
   );
 }

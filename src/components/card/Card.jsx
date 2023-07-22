@@ -7,7 +7,7 @@ const Card = ({ id, posterPath, title, releaseDate, vote_average }) => {
   const navigate = useNavigate()
 
   function getFilmId(id) {
-  navigate(`/moviedetails/id=${id}`)
+  navigate(`/moviedetails/id/${id}`)
   }
 
   return (

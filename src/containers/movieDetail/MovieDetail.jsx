@@ -1,15 +1,15 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Header from "../../components/header/Header";
-import styles from "./movieDetail.module.css"
+import ShowMowieDetail from "./showMovieDetail/ShowMowieDetail";
 
 const MovieDetail = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loadData, setLoadData] = useState(false);
   const [movieDetails, setMovieDetails] = useState([]);
 
-  const searchParams = new URLSearchParams(window.location.search);
-  const id = searchParams.get("id");
+  let { id } = useParams();
 
   useEffect(() => {
     const fetchMoviesDetail = async () => {
@@ -29,7 +29,7 @@ const MovieDetail = () => {
           options
         );
         const data = await response.json();
-        setMovieDetails(data.results);
+        setMovieDetails(data);
         setLoadData(false);
       } catch (error) {
         setLoadData(true);
@@ -43,14 +43,24 @@ const MovieDetail = () => {
     alert("Oops, some went wrong");
   }
 
-  console.log(movieDetails);
-
   return (
     <>
       <Header />
-      <div className={styles.movie_detail_container}>
-
-      </div>
+      <ShowMowieDetail
+        backdrop_path={movieDetails.backdrop_path}
+        budget={movieDetails.budget}
+        revenue={movieDetails.revenue}
+        original_title={movieDetails.original_title}
+        tagline={movieDetails.tagline}
+        overview={movieDetails.overview}
+        popularity={movieDetails.popularity}
+        poster_path={movieDetails.poster_path}
+        release_date={movieDetails.release_date}
+        runtime={movieDetails.runtime}
+        production_countries={movieDetails.production_countries}
+        genres={movieDetails.genres}
+        key={movieDetails.id}
+      />
     </>
   );
 };
