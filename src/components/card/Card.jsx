@@ -26,7 +26,7 @@ const Card = ({ id, posterPath, title, releaseDate, vote_average, loadData }) =>
         <h2 className={styles.card_title}>{title}</h2>
         <p className={styles.card_releaseDate}>{releaseDate}</p>
       </div>
-      <p className={styles.card_vote}>{vote_average * 10 + "%"}</p>
+      <p className={styles.card_vote}>{Math.trunc(vote_average * 10 ) + "%"}</p>
     </div>
   );
 };

@@ -1,6 +1,9 @@
 .foter {
     width: 100%;
     background-color: rgba(3, 37, 65);
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 .foter_container {

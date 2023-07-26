@@ -40,8 +40,18 @@ const ShowMowieDetail = ({
           <p className={styles.text}>Бюджет: {budget} $</p>
           <p className={styles.text}>Касові збори: {revenue} $</p>
           <p className={styles.text}>Популярність {popularity}</p>
-          <p className={styles.text}>Опис</p>
-          <p className={styles.discription}>{overview}</p>
+          {overview ? (
+            <>
+            <p className={styles.text}>Опис</p>
+            <p className={styles.discription}>{overview}</p>
+            </>
+          ) : (
+            <div>
+              {""}
+            </div>
+          )
+
+          }
           {/* {production_countries.map((country) => (
             <p>{country?.name}</p> 
           ))} */}

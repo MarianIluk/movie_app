@@ -11,6 +11,7 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loadData, setLoadData] = useState(false);
   const [movieList, setMovieList] = useState([]);
+  const [searchMovie, setSearchMovie] = useState([]);
   const [value, setValue] = useState("");
   const [count, setCount] = useState(1);
 
@@ -40,6 +41,12 @@ function App() {
       }
     };
 
+    
+    fetchMovies();
+    window.scrollTo(0, 0);
+  }, [count]);
+
+  useEffect(() => {
     const fetchSearch = async () => {
       const options = {
         method: "GET",
@@ -47,23 +54,22 @@ function App() {
           accept: "application/json",
           Authorization:
             "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmY2EzNzlmNmI4MjczNmUyYmQwYjQyMzAyMDM4ODQ0MSIsInN1YiI6IjY0NzA2NmU2NTQzN2Y1MDBjMzI4MWVmZiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.S6SBMSx80eXF17PmGkUXdhVNJuS5EX__fRXcN4KHDeY",
-        },
-      };
+          },
+        };
+        
+        try {
+          const response = await fetch(
+            `https://api.themoviedb.org/3/search/movie?query=${value}&language=uk`,
+            options
+            );
+            const data = await response.json();
+            setSearchMovie(data.results);
+          } catch (error) {}
+        };
+        
+        fetchSearch();
+  }, [value])
 
-      try {
-        const response = await fetch(
-          `https://api.themoviedb.org/3/search/movie?query=${value}`,
-          options
-        );
-        const data1 = await response.json();
-        console.log("search", data1.results);
-      } catch (error) {}
-    };
-
-    fetchSearch();
-    fetchMovies();
-    window.scrollTo(0, 0);
-  }, [count]);
 
   if (errorMessage !== "") {
     alert("Oops, some went wrong");
@@ -84,10 +90,6 @@ function App() {
     setValue(event.target.value);
   };
 
-  const filteredMovie = movieList.filter((movie) =>
-    movie.title.toLowerCase().includes(value.toLowerCase())
-  );
-
   ///////////////////////////////////////////////
 
   return (
@@ -95,19 +97,39 @@ function App() {
       <Header />
       <Search movie={movieList[0]} handleSearch={handleSearch} />
       <div>{loadData ? <Spinner /> : ""}</div>
-      <div className="container_card">
-        {filteredMovie.map((movie) => (
-          <Card
-            loadData={loadData}
-            id={movie.id}
-            posterPath={movie.poster_path}
-            title={movie.title}
-            releaseDate={movie.release_date}
-            vote_average={movie.vote_average}
-            key={movie.id}
-          />
-        ))}
-      </div>
+      {searchMovie.length < 1 ? (
+        <div className="container_card">
+          {movieList.map((movie) => (
+            <Card
+              loadData={loadData}
+              id={movie.id}
+              posterPath={movie.poster_path}
+              title={movie.title}
+              releaseDate={movie.release_date}
+              vote_average={movie.vote_average}
+              key={movie.id}
+            />
+          ))}
+        </div>
+      ) : (
+        <div></div>
+      )}
+
+      {searchMovie.length > 0 ? (
+        <div className="container_card">
+          {searchMovie.map((movie) => (
+            <Card
+              loadData={loadData}
+              id={movie.id}
+              posterPath={movie.poster_path}
+              title={movie.title}
+              releaseDate={movie.release_date}
+              vote_average={movie.vote_average}
+              key={movie.id}
+            />
+          ))}
+        </div>
+      ) : null}
 
       <Pagination increment={increment} decrement={decrement} count={count} />
       <Foter />

@@ -6,7 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import MovieDetail from "./containers/movieDetail/MovieDetail";
 import NotFoundPage from "./containers/NotFoundPage";
-import HomeSerials from "./containers/serials/HomeSerials";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,7 +14,6 @@ root.render(
       <Route path="/" element={<App />} />
       <Route path="/moviedetails/id/:id" element={<MovieDetail />} />
       <Route path="*" element={<NotFoundPage />} />
-      <Route path="/serials/" element={<HomeSerials />} />
     </Routes>
   </BrowserRouter>
 );

@@ -7,10 +7,9 @@ import Foter from "../../components/foter/Foter";
 import Video from "./video/Video";
 
 const MovieDetail = () => {
-  const [errorMessage, setErrorMessage] = useState("");
   const [loadData, setLoadData] = useState(false);
   const [movieDetails, setMovieDetails] = useState([]);
-  const [video, setVideo] = useState('')
+  const [video, setVideo] = useState("");
 
   let { id } = useParams();
 
@@ -36,7 +35,6 @@ const MovieDetail = () => {
         setLoadData(false);
       } catch (error) {
         setLoadData(true);
-        setErrorMessage(error.message);
       }
     };
 
@@ -52,27 +50,22 @@ const MovieDetail = () => {
 
       try {
         const response = await fetch(
-          'https://api.themoviedb.org/3/movie/' + id + '/videos?language=uk',
+          'https://api.themoviedb.org/3/movie/' + id + '/videos',
           options
         );
         const data = await response.json();
-        setVideo(data?.results[0].key);
+        const trailer = data.videos.results.find(vid => vid.name === "Official Trailer")
+        setVideo(trailer ? trailer : data.videos.results[0])
       } catch (error) {
-        setErrorMessage(error.message);
+        console.log(error);
       }
     };
-
-    console.log(video);
-
 
     fetchMoviesVideos();
     fetchMoviesDetail();
   }, []);
 
-  if (errorMessage !== "") {
-    alert("Oops, some went wrong");
-  }
-
+  console.log(video);
   return (
     <>
       <Header />

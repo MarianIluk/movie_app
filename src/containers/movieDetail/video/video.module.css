@@ -1,6 +1,12 @@
 .container_video {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin-top: 100px;
+    padding-bottom: 250px;
+}
+.title {
     margin-bottom: 50px;
+    font-size: 34px;
+    font-weight: bold;
 }

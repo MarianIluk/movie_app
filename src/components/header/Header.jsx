@@ -14,12 +14,8 @@ const Header = () => {
               Фільми
             </a>
           </li>
-          <li className={styles.header_list_item}>
-            <a className={styles.header_list_item_link} href="./serials/">
-              Серіали
-            </a>
-          </li>
-          <li className={styles.header_list_item}>Персони</li>
+          {/* <li className={styles.header_list_item}>Серіали</li>
+          <li className={styles.header_list_item}>Персони</li> */}
         </ul>
       </div>
     </div>
