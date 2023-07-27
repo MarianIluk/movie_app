@@ -17,6 +17,8 @@ const ShowMowieDetail = ({
 }) => {
 
 
+
+
   return (
     <div>
       <img

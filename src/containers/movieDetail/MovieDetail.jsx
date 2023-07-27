@@ -7,7 +7,7 @@ import Foter from "../../components/foter/Foter";
 import Video from "./video/Video";
 
 const MovieDetail = () => {
-  const [loadData, setLoadData] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [movieDetails, setMovieDetails] = useState([]);
   const [video, setVideo] = useState("");
 
@@ -25,16 +25,14 @@ const MovieDetail = () => {
       };
 
       try {
-        setLoadData(true);
         const response = await fetch(
           "https://api.themoviedb.org/3/movie/" + id + "?language=uk",
           options
         );
         const data = await response.json();
         setMovieDetails(data);
-        setLoadData(false);
       } catch (error) {
-        setLoadData(true);
+        setErrorMessage(error.message);
       }
     };
 
@@ -50,22 +48,27 @@ const MovieDetail = () => {
 
       try {
         const response = await fetch(
-          'https://api.themoviedb.org/3/movie/' + id + '/videos',
+          "https://api.themoviedb.org/3/movie/" + id + "/videos",
           options
         );
         const data = await response.json();
-        const trailer = data.videos.results.find(vid => vid.name === "Official Trailer")
-        setVideo(trailer ? trailer : data.videos.results[0])
+        const trailer = data.results.find(
+          (vid) => vid.name === "Official Trailer"
+        );
+        setVideo(trailer ? trailer.key : data.results[0].key);
       } catch (error) {
-        console.log(error);
+        setErrorMessage(error.message);
       }
     };
 
     fetchMoviesVideos();
     fetchMoviesDetail();
-  }, []);
+  }, [video]);
 
-  console.log(video);
+  if (errorMessage !== "") {
+    alert("Oops, some went wrong");
+  }
+
   return (
     <>
       <Header />
@@ -84,7 +87,7 @@ const MovieDetail = () => {
         genres={movieDetails.genres}
         key={movieDetails.id}
       />
-      <Video key={video} />
+      <Video videoKey={video} />
       <Foter />
     </>
   );
